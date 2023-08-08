@@ -23,6 +23,7 @@ MDScreen:
     question: question
     correct_answer: correct_answer
     wrong_answer: wrong_answer
+
     name: 'quiz'
 
     MDFloatLayout:
@@ -72,7 +73,8 @@ MDScreen:
 
             MDIconButton:
                 icon: "language-python"
-                on_press: app.btn_word_pressed()
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: app.btn_word_pressed
 
 
             AnswerButton:

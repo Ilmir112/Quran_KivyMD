@@ -61,41 +61,66 @@ class Quran_KivyMD(MDApp):
         self.theme_cls.primary_palette = "Orange"
         self.theme_cls.theme_style = "Dark"
 
-
         global sm
         sm = ScreenManager(transition=NoTransition())
         # sm.add_widget(Builder.load_file('main.kv'))
         # sm.add_widget(Builder.load_file('select ayats.kv'))
         # sm.add_widget(Builder.load_file('select ayat.kv'))
-        # sm.add_widget(Builder.load_file('select game.kv'))
+        sm.add_widget(Builder.load_file('select game.kv'))
         sm.add_widget(Builder.load_file('quiz.kv'))
-        # sm.add_widget(Builder.load_file('learn.kv'))
+        sm.add_widget(Builder.load_file('learn.kv'))
         return sm
 
     def select_word(self, word):
         self.selected_word = word
-        word_random = random.choice(word_dict[25])
-        # print(self.select_ayat(self))
+        word_random = random.choice(word_dict[24])
+        url = word_random[1]
+        word_sel = f'data/files_mp3{url[4:-4]}.mp3'
+        self.filename = f'data/files_mp3{url[4:-4]}.mp3'
+        self.btn_word_pressed(url, word_sel)
+        print("Файл успешно сохранен.")
+
         sm.get_screen('learn').ids.word.text = f'{word_random[2]}'
         sm.get_screen('learn').ids.word1.text = f'{word_random[0]}'
         sm.current = 'learn'
 
+    def next_word(self):
+        self.select_word(self.selected_word)
+
     # def get_id(self, instance):
     #     for id, widget in instance.parent.parent.parent.ids.items():
     #         if widget.__self__ == instance:
-    #             return id, instance
+    #             print(id)
+    #             return id
     #
     # def select_ayat(self, ayat):
     #     instance = ayat
     #     self.ayat = ayat
-    #     abw = sm.get_screen('learn').ids[self.get_id(instance)].text
+    #     # abw = sm.get_screen('learn').ids[self.get_id(instance)].text
     #     sm.current = 'select_game'
-    #     print(instance)
+
 
     def next_question(self):
         self.quiz_game(self.selected_game)
-        filename = ''
+        for i in range(1, 7):
+            sm.get_screen('quiz').ids[f'answer{i}'].disabled = False
+            sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (40 / 255, 6 / 255, 109 / 255, 1)
+            sm.get_screen('quiz').ids[f'answer{i}'].disabled_color = (1, 1, 1, 0.3)
 
+    def final_score(self):
+        if self.correct == 0 and self.wrong == 0:
+            sm.correct = 'main'
+        else:
+            for i in range(1, 7):
+                sm.get_screen('quiz').ids[f'answer{i}'].disabled = False
+                sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (40 / 255, 6 / 255, 109 / 255, 1)
+                sm.get_screen('quiz').ids[f'answer{i}'].disabled_color = (1, 1, 1, 0.3)
+            success_rate = round((self.correct / (self.correct + self.wrong)) * 100)
+            sm.get_screen('final_score').correct.text = f'{self.correct} - Верно'
+            sm.get_screen('final_score').wrong.text = f'{self.wrong} - Неверно'
+            sm.get_screen('final_score').success_rate.text = f'{success_rate}% верных ответов'
+
+            sm.current = 'final_score'
     def select_game(self, asq):
         sm.current = 'learn'
 
@@ -106,11 +131,9 @@ class Quran_KivyMD(MDApp):
         self.selected_game = game
         question_random = random.choice(word_dict[25])
         url = question_random[1]
-
         filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.filename = f'data/files_mp3{url[4:-4]}.mp3'
-        self.download_mp3(url, filename)
-        self.btn_word_pressed(filename)
+        self.btn_word_pressed(url, filename)
 
         print("Файл успешно сохранен.")
         guestion1 = question_random[0]
@@ -123,7 +146,6 @@ class Quran_KivyMD(MDApp):
                 answer_list.append(answer_random[2])
 
         random.shuffle(answer_list)
-
         sm.get_screen('quiz').ids.question.text = f'{guestion1}'
 
         for i in range(1, 7):
@@ -140,11 +162,11 @@ class Quran_KivyMD(MDApp):
 
     def quiz(self, answer, instance):
         if answer == self.right_answer:
-            # self.correct += 1
+            self.correct += 1
             sm.get_screen('quiz').ids[self.get_id(instance)].bg_color = (0, 1, 0, 1)
             answer_id_list = ['answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6']
             answer_id_list.remove(self.get_id(instance))
-            for i in range(0, 3):
+            for i in range(1, 7):
                 sm.get_screen('quiz').ids[f'{answer_id_list[i]}'].disabled = True
         else:
 
@@ -165,16 +187,25 @@ class Quran_KivyMD(MDApp):
 
     def download_mp3(self, url, filename):
         http = "https://audio.qurancdn.com/"
-
         filename = f'data/files_mp3/{url[4:-4]}.mp3'
-        print(f'{http}{url}')
+        self.filename = filename
+        response = requests.get(f'{http}{url}')
+        response.raise_for_status()
+        print(filename)
+
+        with open(filename, "wb") as file:
+            file.write(response.content)
+
+    def btn_word_pressed(self, url, filename):
+        http = "https://audio.qurancdn.com/"
+        filename = f'data/files_mp3/{url[4:-4]}.mp3'
+        self.filename = filename
         response = requests.get(f'{http}{url}')
         response.raise_for_status()
 
         with open(filename, "wb") as file:
             file.write(response.content)
 
-    def btn_word_pressed(self, filename):
         sound = SoundLoader.load(filename)
         sound.play()
 

@@ -23,34 +23,39 @@ MDScreen:
             source: 'data/logo/koran-oboi.jpg'
             size: 1, 1
         MDGridLayout:
-            rows: 4
+            rows: 1
             cols: 1
             size_hint: .6, .3
             pos_hint: {'center_x': .5, 'center_y': .90}
             spacing: 15
+            MDGridLayout:
+                rows: 5
+                cols: 2
+                size_hint: .6, .3
+                pos_hint: {'center_x': .5, 'center_y': .90}
+                spacing: 15
+                MDLabel:
+                    id: word
+                    text: ''
+                    font_size: '50sp'
+                    halign: 'center'
+                    pos_hint: {'center_x': .4, 'center_y': .56}
+                    color: 1, 0, 1, 1
+                    line_height: 1.1
 
-        MDLabel:
-            id: word
-            text: ''
-            font_size: '50sp'
-            halign: 'center'
-            pos_hint: {'center_x': .4, 'center_y': .56}
-            color: 1, 0, 1, 1
-            line_height: 1.1
+                MDLabel:
+                    id: word1
+                    text: ''
+                    font_size: '80sp'
+                    font_name: "data/ttf/Noto_Naskh_Arabic/NotoNaskhArabic-VariableFont_wght.ttf"
+                    halign: 'center'
+                    pos_hint: {'center_x': .4, 'center_y': .86}
+                    color: 1, 0, 1, 1
+                    line_height: 1.1
 
-        MDLabel:
-            id: word1
-            text: ''
-            font_size: '80sp'
-            font_name: "data/ttf/Noto_Naskh_Arabic/NotoNaskhArabic-VariableFont_wght.ttf"
-            halign: 'center'
-            pos_hint: {'center_x': .4, 'center_y': .86}
-            color: 1, 0, 1, 1
-            line_height: 1.1
-
-        MDIconButton:
-            icon: "language-python"
-            on_press: app.btn_word_pressed()
+                MDIconButton:
+                    icon: "language-python"
+                    on_press: app.btn_word_pressed
 
         Button:
             text: 'Следующее слово'
