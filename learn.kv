@@ -1,0 +1,69 @@
+<LearnButton>
+
+    font_size: '40sp'
+    background_color: 1, 1 ,1, 0
+    bg_color: 40/255, 6/255, 109/255, 1
+    on_release: app.select_word(self.text, self)
+    canvas.before:
+        Color:
+            rgb: root.bg_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.x, self.y + 5
+            radius: [10]
+MDScreen:
+    word: word
+    word1: word1
+
+    name: 'learn'
+
+    MDFloatLayout:
+        md_bg_color: rgba( 60, 12, 156, 255)
+        Image:
+            source: 'data/logo/koran-oboi.jpg'
+            size: 1, 1
+        MDGridLayout:
+            rows: 3
+            cols: 1
+            size_hint: .6, .3
+            pos_hint: {'center_x': .5, 'center_y': .90}
+            spacing: 15
+
+
+        MDLabel:
+            id: word
+            text: ''
+            font_size: '50sp'
+            halign: 'center'
+            pos_hint: {'center_x': .4, 'center_y': .56}
+            color: 1, 0, 1, 1
+            line_height: 1.1
+        MDLabel:
+            id: word1
+            text: ''
+            font_size: '50sp'
+            halign: 'center'
+            pos_hint: {'center_x': .4, 'center_y': .86}
+            color: 1, 0, 1, 1
+            line_height: 1.1
+
+
+
+
+
+        Button:
+            text: 'Следующее слово'
+            font_size: '30sp'
+            size_hint: .55, .12
+            pos_hint: {'center_x': .4, 'center_y': .27}
+            color: rgba(251, 187, 29, 255)
+            background_color:1, 1, 1, 0
+            on_release:
+                app.select_word(self.text)
+            canvas.before:
+                Color:
+                    rgb: 1, 1, 1, 1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.x, self.y + 5
+                    radius: [10]
