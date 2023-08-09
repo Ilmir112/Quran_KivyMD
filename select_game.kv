@@ -1,0 +1,57 @@
+<SelectGameButton>
+
+    font_size: '30sp'
+    background_color: 1, 1 ,1, 0
+
+    canvas.before:
+        Color:
+            rgb:  40/255, 5/255, 109/255, 1
+        RoundedRectangle:
+            size: self.size
+            pos: self.x, self.y + 5
+            radius: [10]
+MDScreen:
+    name: 'select_game'
+    MDFloatLayout:
+        md_bg_color: rgba(10, 12, 10, 255)
+        Image:
+            source: 'data/logo/koran-oboi.jpg'
+            size: 1, 1
+
+        MDTopAppBar:
+            title: "Qaran Academy"
+            use_overflow: True
+            panel_color: app.theme_cls.primary_color
+
+            right_action_items:
+                [
+                ["home", lambda main: app.callback('main'), "Главная"],
+#                ["cogs", lambda x: app.callback('setting'), "Настройки"],
+                ["star-crescent", lambda x: app.callback('select_surah'), "Выбор игры"],
+#                ["message-reply", lambda x: app.callback(x), "авторы"],
+                ]
+
+        MDLabel:
+            text: ""
+            font_size: '55sp'
+            halign: 'center'
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            color: 1, 1, 1, 1
+            line_height: 1.1
+
+        GridLayout:
+            cols: 2
+            rows: 1
+            size_hint: .6, .3
+            pos_hint: {'center_x': .5, 'center_y': .47}
+            spacing: 15
+
+            SelectGameButton:
+                text: 'изучение'
+                id: game1
+                on_release: app.select_word(self.text)
+            SelectGameButton:
+                text: 'викторина'
+                id: game2
+                on_release: app.quiz(self.text)
+

@@ -21,9 +21,6 @@ word_dict = dt.data_from_json(word) # база данных из суры 30 в 
 class CustomOverFlowMenu(MDDropdownMenu):
     # In this class you can set custom properties for the overflow menu.
     pass
-
-
-
 class AnswerButton(Button):
     bg_color = ListProperty([1, 1, 1, 1])
 
@@ -42,8 +39,6 @@ class SelectGameButton(Button):
 class SelectAyatButton(Button):
     bg_color = ListProperty([1, 1, 1, 0])
 
-
-# noinspection PyTypeChecker
 class Quran_KivyMD(MDApp):
 
     selected_word = ''
@@ -53,9 +48,7 @@ class Quran_KivyMD(MDApp):
     correct = 0
     wrong = 0
     success_rate = 0
-
-
-    slovo = None
+    ayat_more = 0
 
     def build(self):
         self.theme_cls.primary_palette = "Orange"
@@ -63,10 +56,10 @@ class Quran_KivyMD(MDApp):
 
         global sm
         sm = ScreenManager(transition=NoTransition())
-        # sm.add_widget(Builder.load_file('main.kv'))
-        # sm.add_widget(Builder.load_file('select ayats.kv'))
-        # sm.add_widget(Builder.load_file('select ayat.kv'))
-        sm.add_widget(Builder.load_file('select game.kv'))
+        sm.add_widget(Builder.load_file('main.kv'))
+        sm.add_widget(Builder.load_file('select_ayats.kv'))
+        sm.add_widget(Builder.load_file('select_ayat.kv'))
+        sm.add_widget(Builder.load_file('select_game.kv'))
         sm.add_widget(Builder.load_file('quiz.kv'))
         sm.add_widget(Builder.load_file('learn.kv'))
         return sm
@@ -79,6 +72,7 @@ class Quran_KivyMD(MDApp):
         self.filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.btn_word_pressed(url, word_sel)
         print("Файл успешно сохранен.")
+        print(f'1-{self.ayat_more}')
 
         sm.get_screen('learn').ids.word.text = f'{word_random[2]}'
         sm.get_screen('learn').ids.word1.text = f'{word_random[0]}'
@@ -87,17 +81,28 @@ class Quran_KivyMD(MDApp):
     def next_word(self):
         self.select_word(self.selected_word)
 
-    # def get_id(self, instance):
-    #     for id, widget in instance.parent.parent.parent.ids.items():
-    #         if widget.__self__ == instance:
-    #             print(id)
-    #             return id
+
+    # def select_ayat(self,  instance):
     #
-    # def select_ayat(self, ayat):
-    #     instance = ayat
-    #     self.ayat = ayat
-    #     # abw = sm.get_screen('learn').ids[self.get_id(instance)].text
-    #     sm.current = 'select_game'
+    #     sm.current = 'select_ayat'
+
+    def text_ayat_id(self, instance):
+        if instance == 'айты 1-20':
+            self.ayat_more = 0
+
+        elif instance == 'айты 21-40':
+            self.ayat_more = 1
+
+        elif instance == 'айты 41-60':
+            self.ayat_more = 2
+        ayat_more = self.ayat_more
+
+        for i in range(1, 21):
+            sm.get_screen('select_ayat').ids[f'ayat{i}'].text = f'Айат {i + (20*ayat_more)}'
+
+        sm.current = 'select_ayat'
+
+
 
 
     def next_question(self):
@@ -121,11 +126,16 @@ class Quran_KivyMD(MDApp):
             sm.get_screen('final_score').success_rate.text = f'{success_rate}% верных ответов'
 
             sm.current = 'final_score'
-    def select_game(self, asq):
-        sm.current = 'learn'
+    def select_game(self):
+        sm.current = 'select_game'
 
-    def select_ayats(self, ayats):
+    def select_ayats(self, instance):
+        print(self.ayat_more)
         sm.current = 'select_ayats'
+
+
+
+
 
     def quiz_game(self, game):
         self.selected_game = game
@@ -156,6 +166,7 @@ class Quran_KivyMD(MDApp):
     answer_dict = {}
 
     def get_id(self, instance):
+
         for id, widget in instance.parent.parent.parent.ids.items():
             if widget.__self__ == instance:
                 return id
@@ -212,5 +223,4 @@ class Quran_KivyMD(MDApp):
 
 if __name__ == '__main__':
     Quran_KivyMD().run()
-
 
