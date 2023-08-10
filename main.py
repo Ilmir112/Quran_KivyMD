@@ -8,6 +8,7 @@ from kivy.properties import ListProperty
 from kivy.uix.button import Button
 from kivy.core.audio import SoundLoader
 from kivymd.uix.menu import MDDropdownMenu
+from kivy.core.window import Window
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.gridlayout import GridLayout
 
@@ -42,6 +43,7 @@ class SelectAyatButton(Button):
     bg_color = ListProperty([1, 1, 1, 0])
 
 class Quran_KivyMD(MDApp):
+
     selected_word = ''
     right_answer = ''
     selected_game = ''
@@ -100,7 +102,7 @@ class Quran_KivyMD(MDApp):
         self.quiz_game(self.selected_game)
         for i in range(1, 7):
             sm.get_screen('quiz').ids[f'answer{i}'].disabled = False
-            sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (40 / 255, 6 / 255, 109 / 255, 1)
+            sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (1 / 255, 1 / 255, 1 / 255, 1)
             sm.get_screen('quiz').ids[f'answer{i}'].disabled_color = (1, 1, 1, 0.3)
 
     def final_score(self):
@@ -196,6 +198,7 @@ class Quran_KivyMD(MDApp):
                 print("Файл успешно открыт.")
             sound = SoundLoader.load(filename)
             sound.play()
+            self.filename = filename
         except:
             http = "https://audio.qurancdn.com/"
             filename = f'data/files_mp3/{url[4:-4]}.mp3'
@@ -208,7 +211,12 @@ class Quran_KivyMD(MDApp):
 
             sound = SoundLoader.load(filename)
             sound.play()
+            self.filename = filename
 
+    def play_word(self):
+        print(self.filename)
+        sound = SoundLoader.load(self.filename)
+        sound.play()
 
 
 if __name__ == '__main__':

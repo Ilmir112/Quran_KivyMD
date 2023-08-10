@@ -1,5 +1,4 @@
 <LearnButton>
-
     font_size: '40sp'
     background_color: 1, 1 ,1, 0
     bg_color: rgba(0, 153, 0, 1)
@@ -11,6 +10,7 @@
             size: self.size
             pos: self.x, self.y + 5
             radius: [10]
+
 MDScreen:
     word: word
     word1: word1
@@ -63,7 +63,7 @@ MDScreen:
 
                 MDIconButton:
                     icon: "language-python"
-                    on_press: app.btn_word_pressed
+                    on_press: app.play_word()
                     pos_hint: {'center_x': .4, 'center_y': .16}
                     icon_size: 48
 
