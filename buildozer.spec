@@ -13,7 +13,7 @@ package.domain = org.novfensec
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,txt,atlas,mp3,json
+source.include_exts = py,png,jpg,kv,txt,atlas,mp3,json,ttf
 
 # (list) List of inclusions using pattern matching
 # source.include_patterns = data/logo/*.png
