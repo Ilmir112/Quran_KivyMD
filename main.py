@@ -55,7 +55,7 @@ class Quran_KivyMD(MDApp):
 
         global sm
         sm = ScreenManager(transition=NoTransition())
-        # sm.add_widget(Builder.load_file('main.kv'))
+        sm.add_widget(Builder.load_file('main.kv'))
         sm.add_widget(Builder.load_file('select_ayats.kv'))
         sm.add_widget(Builder.load_file('select_ayat.kv'))
         sm.add_widget(Builder.load_file('select_game.kv'))
@@ -131,13 +131,11 @@ class Quran_KivyMD(MDApp):
     def quiz_game(self, game):
         self.selected_game = game
         question_random = random.choice(word_dict[self.selected_word])
-
         url = question_random[1]
+
         filename = f'data/files_mp3{url[4:-4]}.mp3'
-        self.filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.btn_word_pressed(url, filename)
 
-        print("Файл успешно сохранен.")
         guestion1 = question_random[0]
         self.right_answer = question_random[2]
         answer_list = [self.right_answer]
@@ -191,7 +189,7 @@ class Quran_KivyMD(MDApp):
     def btn_word_pressed(self, url, filename):
         try:
             filename = f'data/files_mp3/{url[4:-4]}.mp3'
-            self.filename = filename
+            # self.filename = filename
             with open(filename, "rb") as file:
                 file.read()
                 print("Файл успешно открыт.")
