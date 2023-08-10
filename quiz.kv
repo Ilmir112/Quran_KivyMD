@@ -8,8 +8,8 @@
     valign:'center'
     text_size: (250, 300)
     size: self.size
-    background_color: 1, 1 ,1, 0
-    bg_color: 40/255, 6/255, 109/255, 1
+    background_color: 0, 0 ,0, 0
+    bg_color: rgba(0, 153, 0, 1)
     on_release: app.quiz(self.text, self)
     canvas.before:
         Color:
@@ -31,6 +31,19 @@ MDScreen:
         Image:
             source: 'data/logo/koran-oboi.jpg'
             size: 1, 1
+        MDTopAppBar:
+            title: "Qaran Academy"
+            use_overflow: True
+            panel_color: app.theme_cls.primary_color
+
+            right_action_items:
+                [
+                ["home", lambda main: app.callback('main'), "Главная"],
+#                ["cogs", lambda x: app.callback('setting'), "Настройки"],
+                ["star-crescent", lambda x: app.callback('select_surah'), "Выбор игры"],
+#                ["message-reply", lambda x: app.callback(x), "авторы"],
+                ]
+
         MDGridLayout:
             rows: 1
             cols: 1

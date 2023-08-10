@@ -10,6 +10,7 @@ def data_from_json(ayat):
         verse_key += 1
         for j in data['verses'][i - 1]['words']:
             if j['audio_url'] != None:
-                dict_ques.setdefault(i, []).append([j["text"], j['audio_url'], j['translation']['text']])
+                dict_ques.setdefault(i, []).append([j["text"], j['audio_url'], j['translation']['text'], j["transliteration"]['text']])
+
 
     return dict_ques

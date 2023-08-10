@@ -12,19 +12,19 @@ from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.gridlayout import GridLayout
 
 import random
-
 import dataloader as dt
 
 word = []
-word_dict = dt.data_from_json(word) # база данных из суры 30 в виде словаря
+word_dict = dt.data_from_json(word)  # база данных из суры 30 в виде словаря
+
 
 class CustomOverFlowMenu(MDDropdownMenu):
-    # In this class you can set custom properties for the overflow menu.
     pass
-class AnswerButton(Button):
+
+class AnswerButton(Button): # Класс кнопки в quiz.kv
     bg_color = ListProperty([1, 1, 1, 1])
 
-class LearnButton(Button):
+class LearnButton(Button): # Класс кнопки в learn.kv
     bg_color = ListProperty([1, 1, 1, 1])
 
 class SelectAyatsButton(Button):
@@ -36,11 +36,11 @@ class SelectGameButton(Button):
 class SelectGameButton(Button):
     bg_color = ListProperty([1, 1, 1, 0])
 
+
 class SelectAyatButton(Button):
     bg_color = ListProperty([1, 1, 1, 0])
 
 class Quran_KivyMD(MDApp):
-
     selected_word = ''
     right_answer = ''
     selected_game = ''
@@ -49,14 +49,13 @@ class Quran_KivyMD(MDApp):
     wrong = 0
     success_rate = 0
     ayat_more = 0
-
     def build(self):
         self.theme_cls.primary_palette = "Orange"
         self.theme_cls.theme_style = "Dark"
 
         global sm
         sm = ScreenManager(transition=NoTransition())
-        sm.add_widget(Builder.load_file('main.kv'))
+        # sm.add_widget(Builder.load_file('main.kv'))
         sm.add_widget(Builder.load_file('select_ayats.kv'))
         sm.add_widget(Builder.load_file('select_ayat.kv'))
         sm.add_widget(Builder.load_file('select_game.kv'))
@@ -64,28 +63,22 @@ class Quran_KivyMD(MDApp):
         sm.add_widget(Builder.load_file('learn.kv'))
         return sm
 
-    def select_word(self, word):
-        self.selected_word = word
-        word_random = random.choice(word_dict[24])
+    def select_word(self, instance):  # функция подбора слова для изучения из выбранного аята
+        word1 = word_dict[self.selected_word]
+        word_random = random.choice(word1)
         url = word_random[1]
         word_sel = f'data/files_mp3{url[4:-4]}.mp3'
         self.filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.btn_word_pressed(url, word_sel)
         print("Файл успешно сохранен.")
-        print(f'1-{self.ayat_more}')
-
         sm.get_screen('learn').ids.word.text = f'{word_random[2]}'
         sm.get_screen('learn').ids.word1.text = f'{word_random[0]}'
+        sm.get_screen('learn').ids.transition_1.text = f'Транскрипция [{word_random[3]}]'
+
         sm.current = 'learn'
 
     def next_word(self):
         self.select_word(self.selected_word)
-
-
-    # def select_ayat(self,  instance):
-    #
-    #     sm.current = 'select_ayat'
-
     def text_ayat_id(self, instance):
         if instance == 'айты 1-20':
             self.ayat_more = 0
@@ -98,12 +91,9 @@ class Quran_KivyMD(MDApp):
         ayat_more = self.ayat_more
 
         for i in range(1, 21):
-            sm.get_screen('select_ayat').ids[f'ayat{i}'].text = f'Айат {i + (20*ayat_more)}'
+            sm.get_screen('select_ayat').ids[f'ayat{i}'].text = f'Айат {i + (20 * ayat_more)}'
 
         sm.current = 'select_ayat'
-
-
-
 
     def next_question(self):
         self.quiz_game(self.selected_game)
@@ -126,20 +116,22 @@ class Quran_KivyMD(MDApp):
             sm.get_screen('final_score').success_rate.text = f'{success_rate}% верных ответов'
 
             sm.current = 'final_score'
-    def select_game(self):
+
+    def select_game(self, instance):
+        self.select_word_dict(self, instance)
         sm.current = 'select_game'
 
     def select_ayats(self, instance):
         print(self.ayat_more)
         sm.current = 'select_ayats'
 
-
-
-
+    def select_word_dict(self, word_dict, instance):
+        self.selected_word = int(str(instance)[-2:])
 
     def quiz_game(self, game):
         self.selected_game = game
-        question_random = random.choice(word_dict[25])
+        question_random = random.choice(word_dict[self.selected_word])
+
         url = question_random[1]
         filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.filename = f'data/files_mp3{url[4:-4]}.mp3'
@@ -151,7 +143,7 @@ class Quran_KivyMD(MDApp):
         answer_list = [self.right_answer]
 
         while len(answer_list) != 6:
-            answer_random = random.choice(word_dict[25])
+            answer_random = random.choice(word_dict[self.selected_word])
             if answer_random[2] not in answer_list:
                 answer_list.append(answer_random[2])
 
@@ -223,4 +215,3 @@ class Quran_KivyMD(MDApp):
 
 if __name__ == '__main__':
     Quran_KivyMD().run()
-

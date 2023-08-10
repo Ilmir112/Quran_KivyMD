@@ -3,10 +3,11 @@
 
     font_size: '30sp'
     background_color: 1, 1 ,1, 0
-    on_release: app.select_game()
+    bg_color: rgba(0, 153, 0, 1)
+    on_release: app.select_game(self.text)
     canvas.before:
         Color:
-            rgb:  40/255, 5/255, 109/255, 1
+            rgb: root.bg_color
         RoundedRectangle:
             size: self.size
             pos: self.x, self.y + 5
@@ -36,7 +37,7 @@ MDScreen:
             text: "выбор айта"
             font_size: '55sp'
             halign: 'center'
-            pos_hint: {'center_x': .5, 'center_y': .8}
+            pos_hint: {'center_x': .5, 'center_y': .9}
             color: 1, 1, 1, 1
             line_height: 1.1
 
@@ -44,7 +45,7 @@ MDScreen:
             cols: 4
             rows: 5
             size: self.size
-            size_hint: .6, .3
+            size_hint: .8, .6
             pos_hint: {'center_x': .5, 'center_y': .47}
             spacing: 15
 

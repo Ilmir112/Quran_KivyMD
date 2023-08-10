@@ -2,7 +2,7 @@
 
     font_size: '40sp'
     background_color: 1, 1 ,1, 0
-    bg_color: 40/255, 6/255, 109/255, 1
+    bg_color: rgba(0, 153, 0, 1)
     on_release: app.select_word(self.text, self)
     canvas.before:
         Color:
@@ -14,6 +14,7 @@
 MDScreen:
     word: word
     word1: word1
+    transition_1: transition_1
 
     name: 'learn'
 
@@ -22,20 +23,50 @@ MDScreen:
         Image:
             source: 'data/logo/koran-oboi.jpg'
             size: 1, 1
+
+        MDTopAppBar:
+            title: "Qaran Academy"
+            use_overflow: True
+            panel_color: app.theme_cls.primary_color
+            pos_hint: {'center_x': .5, 'center_y': .10}
+
+
+            right_action_items:
+                [
+                ["home", lambda main: app.callback('main'), "Главная"],
+#                ["cogs", lambda x: app.callback('setting'), "Настройки"],
+                ["star-crescent", lambda x: app.callback('select_surah'), "Выбор игры"],
+#                ["message-reply", lambda x: app.callback(x), "авторы"],
+                ]
+
         MDGridLayout:
-            rows: 1
             cols: 1
-            size_hint: .6, .3
-            pos_hint: {'center_x': .5, 'center_y': .90}
+            rows: 5
+            size_hint: .9, .9
+            pos_hint: {'center_x': .5, 'center_y': .50}
             spacing: 15
+
+
             MDGridLayout:
-                rows: 5
                 cols: 2
-                size_hint: .6, .3
-                pos_hint: {'center_x': .5, 'center_y': .90}
-                spacing: 15
+                rows: 1
+                MDLabel:
+                    id: word
+                    text: ''
+                    font_size: '50sp'
+                    halign: 'center'
+                    # pos_hint: {'center_x': .4, 'center_y': .26}
+                    color: 1, 0, 1, 1
+                    line_height: 1.1
+
+                MDIconButton:
+                    icon: "language-python"
+                    on_press: app.btn_word_pressed
+                    pos_hint: {'center_x': .4, 'center_y': .16}
+                    icon_size: 48
+
             MDLabel:
-                id: word
+                id: transition_1
                 text: ''
                 font_size: '50sp'
                 halign: 'center'
@@ -53,15 +84,13 @@ MDScreen:
                 color: 1, 0, 1, 1
                 line_height: 1.1
 
-            MDIconButton:
-                icon: "language-python"
-                on_press: app.btn_word_pressed
+
 
         Button:
             text: 'Следующее слово'
             font_size: '30sp'
             size_hint: .55, .12
-            pos_hint: {'center_x': .4, 'center_y': .27}
+            pos_hint: {'center_x': .5, 'center_y': .27}
             color: rgba(251, 187, 29, 255)
             background_color:1, 1, 1, 0
             on_release:

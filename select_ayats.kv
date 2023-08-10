@@ -2,10 +2,11 @@
 
     font_size: '30sp'
     background_color: 1, 1 ,1, 0
+    bg_color: rgba(0, 153, 0, 1)
     on_release: app.text_ayat_id(self.text)
     canvas.before:
         Color:
-            rgb:  40/255, 5/255, 109/255, 1
+            rgb: root.bg_color
         RoundedRectangle:
             size: self.size
             pos: self.x, self.y + 5
