@@ -42,18 +42,20 @@ MDScreen:
         MDGridLayout:
             cols: 1
             rows: 5
-            size_hint: .9, .9
-            pos_hint: {'center_x': .5, 'center_y': .50}
+
+            size_hint: .5, .55
+            pos_hint: {'center_x': .4, 'center_y': .5}
             spacing: 15
 
 
             MDGridLayout:
                 cols: 2
                 rows: 1
+                pos_hint: {'center_x': .4, 'center_y': .56}
                 MDLabel:
                     id: word
                     text: ''
-                    font_size: '50sp'
+                    font_size: '40sp'
                     halign: 'center'
                     # pos_hint: {'center_x': .4, 'center_y': .26}
                     color: 1, 0, 1, 1
@@ -68,9 +70,9 @@ MDScreen:
             MDLabel:
                 id: transition_1
                 text: ''
-                font_size: '50sp'
+                font_size: '40sp'
                 halign: 'center'
-                pos_hint: {'center_x': .4, 'center_y': .56}
+                pos_hint: {'center_x': .4, 'center_y': .26}
                 color: 1, 0, 1, 1
                 line_height: 1.1
 
@@ -86,19 +88,19 @@ MDScreen:
 
 
 
-        Button:
-            text: 'Следующее слово'
-            font_size: '30sp'
-            size_hint: .55, .12
-            pos_hint: {'center_x': .5, 'center_y': .27}
-            color: rgba(251, 187, 29, 255)
-            background_color:1, 1, 1, 0
-            on_release:
-                app.next_word()
-            canvas.before:
-                Color:
-                    rgb: 1, 1, 1, 1
-                RoundedRectangle:
-                    size: self.size
-                    pos: self.x, self.y + 5
-                    radius: [10]
+            Button:
+                text: 'Следующее слово'
+                font_size: '30sp'
+                size_hint: .55, .55
+                pos_hint: {'center_x': .5, 'center_y': .27}
+                color: rgba(251, 187, 29, 255)
+                background_color:1, 1, 1, 0
+                on_release:
+                    app.next_word()
+                canvas.before:
+                    Color:
+                        rgb: 1, 1, 1, 1
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.x, self.y + 5
+                        radius: [10]

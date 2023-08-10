@@ -70,10 +70,10 @@ class Quran_KivyMD(MDApp):
         word_sel = f'data/files_mp3{url[4:-4]}.mp3'
         self.filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.btn_word_pressed(url, word_sel)
-        print("Файл успешно сохранен.")
+
         sm.get_screen('learn').ids.word.text = f'{word_random[2]}'
         sm.get_screen('learn').ids.word1.text = f'{word_random[0]}'
-        sm.get_screen('learn').ids.transition_1.text = f'Транскрипция [{word_random[3]}]'
+        sm.get_screen('learn').ids.transition_1.text = f'[{word_random[3]}]'
 
         sm.current = 'learn'
 
@@ -188,29 +188,28 @@ class Quran_KivyMD(MDApp):
     def callback(self, instance_action_top_appbar_button):
         self.root.current = instance_action_top_appbar_button
 
-    def download_mp3(self, url, filename):
-        http = "https://audio.qurancdn.com/"
-        filename = f'data/files_mp3/{url[4:-4]}.mp3'
-        self.filename = filename
-        response = requests.get(f'{http}{url}')
-        response.raise_for_status()
-        print(filename)
-
-        with open(filename, "wb") as file:
-            file.write(response.content)
-
     def btn_word_pressed(self, url, filename):
-        http = "https://audio.qurancdn.com/"
-        filename = f'data/files_mp3/{url[4:-4]}.mp3'
-        self.filename = filename
-        response = requests.get(f'{http}{url}')
-        response.raise_for_status()
+        try:
+            filename = f'data/files_mp3/{url[4:-4]}.mp3'
+            self.filename = filename
+            with open(filename, "rb") as file:
+                file.read()
+                print("Файл успешно открыт.")
+            sound = SoundLoader.load(filename)
+            sound.play()
+        except:
+            http = "https://audio.qurancdn.com/"
+            filename = f'data/files_mp3/{url[4:-4]}.mp3'
+            self.filename = filename
+            response = requests.get(f'{http}{url}')
+            response.raise_for_status()
+            print("Файл успешно сохранен.")
+            with open(filename, "wb") as file:
+                file.write(response.content)
 
-        with open(filename, "wb") as file:
-            file.write(response.content)
+            sound = SoundLoader.load(filename)
+            sound.play()
 
-        sound = SoundLoader.load(filename)
-        sound.play()
 
 
 if __name__ == '__main__':
