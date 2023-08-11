@@ -37,10 +37,10 @@ version = 0.2
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.9.12, hostpython3==3.9.12, kivy==2.1.0,https://github.com/kivymd/KivyMD/archive/master.zip,appdirs==1.4.4, arabic-reshaper==3.0.0 ,
-beautifulsoup4==4.12.2, bs4==0.0.1, certifi==2023.7.22, charset-normalizer==3.2.0, colorama==0.4.6, cssselect==1.2.0, docutils==0.20.1,
+requirements = python3==3.11, hostpython3==3.9.12, kivy==2.2.0,https://github.com/kivymd/KivyMD/archive/master.zip, arabic-reshaper==3.0.0 ,
+certifi==2023.7.22, charset-normalizer==3.2.0, colorama==0.4.6, cssselect==1.2.0, docutils==0.20.1,
 fake-useragent==1.2.0, idna==3.4, importlib-metadata==6.8.0, kivy-deps.angle==0.3.3, kivy-deps.glew==0.3.1, kivy-deps.sdl2==0.6.0,
-Kivy-Garden==0.1.5, kivymd==1.1.1, lxml==4.9.3, parse==1.19.1, Pillow==10.0.0, pyee==8.2.2,Pygments==2.15.1, pypiwin32==223,
+Kivy-Garden==0.1.5, lxml==4.9.3, Pillow==10.0.0, pyee==8.2.2,Pygments==2.15.1,
 pyppeteer==1.0.2, pyquery==2.0.0, python-bidi==0.4.2,pywin32==306, requests==2.31.0,requests-html==0.10.0, six==1.16.0,soupsieve==2.4.1,
 tqdm==4.65.0,urllib3==1.26.16, w3lib==2.1.1,websockets==10.4, zipp==3.16.2
 
@@ -71,7 +71,7 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 2.1.0
+osx.kivy_version = 2.2.0
 
 #
 # Android specific
@@ -104,7 +104,7 @@ android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-android.api = 27
+android.api = 28
 
 # (int) Minimum API your APK / AAB will support.
 android.minapi = 21
