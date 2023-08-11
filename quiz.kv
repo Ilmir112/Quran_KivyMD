@@ -3,10 +3,11 @@
 
 <AnswerButton>
 
-    font_size: '25sp'
+    font_size: '20sp'
     halign: 'center'
     valign:'center'
-    text_size: (250, 300)
+    text_size: self.size
+
     size: self.size
     background_color: 0, 0 ,0, 0
     bg_color: rgba(0, 153, 0, 1)
@@ -63,6 +64,7 @@ MDScreen:
                 id: wrong_answer
                 text: ''
                 font_size: '30sp'
+                text_size: Window.width - dp(15), None
                 halign: 'center'
                 pos_hint: {'center_x': .4, 'center_y': .100}
                 color: 1, 1, 1, 1
@@ -71,7 +73,7 @@ MDScreen:
         MDGridLayout:
             rows: 4
             cols: 2
-            size_hint: .6, .55
+            size_hint: .6, .65
             pos_hint: {'center_x': .4, 'center_y': .59}
             spacing: 5
 
@@ -79,13 +81,15 @@ MDScreen:
                 id: question
                 text: ''
                 font_size: '80sp'
+                text_size: Window.width - dp(15), None
                 font_name: "data/ttf/Noto_Naskh_Arabic/NotoNaskhArabic-VariableFont_wght.ttf"
                 halign: 'center'
                 color: 1, 1, 1, 1
                 line_height: 1.1
 
             MDIconButton:
-                icon: "language-python"
+                icon: "pause-box"
+                icon_size: 48
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: app.play_word()
 

@@ -11,7 +11,11 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.core.window import Window
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.gridlayout import GridLayout
-
+from kivy import platform
+if platform == "android":
+    from android.permissions import request_permissions, Permission
+    request_permissions([Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE,
+Permission.READ_EXTERNAL_STORAGE])
 
 import random
 import dataloader as dt
@@ -102,7 +106,7 @@ class Quran_KivyMD(MDApp):
         self.quiz_game(self.selected_game)
         for i in range(1, 7):
             sm.get_screen('quiz').ids[f'answer{i}'].disabled = False
-            sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (1 / 255, 1 / 255, 1 / 255, 1)
+            sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (0 / 255, 153 / 255, 0 / 255, 1)
             sm.get_screen('quiz').ids[f'answer{i}'].disabled_color = (1, 1, 1, 0.3)
 
     def final_score(self):
@@ -110,6 +114,7 @@ class Quran_KivyMD(MDApp):
             sm.correct = 'main'
         else:
             for i in range(1, 7):
+                print(i)
                 sm.get_screen('quiz').ids[f'answer{i}'].disabled = False
                 sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (40 / 255, 6 / 255, 109 / 255, 1)
                 sm.get_screen('quiz').ids[f'answer{i}'].disabled_color = (1, 1, 1, 0.3)
@@ -167,10 +172,11 @@ class Quran_KivyMD(MDApp):
     def quiz(self, answer, instance):
         if answer == self.right_answer:
             self.correct += 1
-            sm.get_screen('quiz').ids[self.get_id(instance)].bg_color = (0, 1, 0, 1)
+            sm.get_screen('quiz').ids[self.get_id(instance)].bg_color = (0, 0, 0, 1)
             answer_id_list = ['answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6']
             answer_id_list.remove(self.get_id(instance))
-            for i in range(1, 7):
+            for i in range(1, 5):
+                print(i)
                 sm.get_screen('quiz').ids[f'{answer_id_list[i]}'].disabled = True
         else:
 

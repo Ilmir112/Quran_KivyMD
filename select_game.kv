@@ -1,8 +1,12 @@
+#: import Window kivy.core.window.Window
 <SelectGameButton>
 
     font_size: '30sp'
     background_color: 1, 1 ,1, 0
     bg_color: rgba(0, 153, 0, 1)
+    text_size: self.size
+    halign: 'center'
+    valign: 'center'
     canvas.before:
         Color:
             rgb: root.bg_color
@@ -40,8 +44,8 @@ MDScreen:
             line_height: 1.1
 
         GridLayout:
-            cols: 2
-            rows: 1
+            cols: 1
+            rows: 2
             size_hint: .6, .3
             pos_hint: {'center_x': .5, 'center_y': .47}
             spacing: 15

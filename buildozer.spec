@@ -42,7 +42,7 @@ certifi==2023.7.22, charset-normalizer==3.2.0, colorama==0.4.6, cssselect==1.2.0
 fake-useragent==1.2.0, idna==3.4, importlib-metadata==6.8.0, kivy-deps.angle==0.3.3, kivy-deps.glew==0.3.1, kivy-deps.sdl2==0.6.0,
 Kivy-Garden==0.1.5, lxml==4.9.3, Pillow==10.0.0, pyee==8.2.2,Pygments==2.15.1,
 pyppeteer==1.0.2, pyquery==2.0.0, python-bidi==0.4.2,pywin32==306, requests==2.31.0,requests-html==0.10.0, six==1.16.0,soupsieve==2.4.1,
-tqdm==4.65.0,urllib3==1.26.16, w3lib==2.1.1,websockets==10.4, zipp==3.16.2
+tqdm==4.65.0,urllib3==1.26.16, w3lib==2.1.1,websockets==10.4, zipp==3.16.2, android
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -98,7 +98,7 @@ android.presplash_color = black
 #icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
 
 # (list) Permissions
-android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE
+android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE, READ_MEDIA_AUDIO,READ_MEDIA_IMAGES
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
