@@ -65,6 +65,7 @@ class Quran_KivyMD(MDApp):
         sm.add_widget(Builder.load_file('select_game.kv'))
         sm.add_widget(Builder.load_file('quiz.kv'))
         sm.add_widget(Builder.load_file('learn.kv'))
+        sm.add_widget(Builder.load_file('final_score.kv'))
         return sm
 
     def select_word(self, instance):  # функция подбора слова для изучения из выбранного аята
@@ -130,10 +131,6 @@ class Quran_KivyMD(MDApp):
 
         sm.current = 'select_ayats'
 
-    def open_ayat(self, selected_game):
-        sm.get_screen('learn').ids.open_ayat.text = f'Сура 30 Айат {selected_game}'
-        sm.current = 'learn'
-
     def select_word_dict(self, word_dict, instance):
         self.selected_word = int(str(instance)[-2:])
 
@@ -141,10 +138,8 @@ class Quran_KivyMD(MDApp):
         self.selected_game = game
         question_random = random.choice(word_dict[self.selected_word])
         url = question_random[1]
-
         filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.btn_word_pressed(url, filename)
-
         guestion1 = question_random[0]
         self.right_answer = question_random[2]
         answer_list = [self.right_answer]
@@ -156,6 +151,7 @@ class Quran_KivyMD(MDApp):
 
         random.shuffle(answer_list)
         sm.get_screen('quiz').ids.question.text = f'{guestion1}'
+        sm.get_screen('quiz').ids.open_ayat2.text = f'Сура 30 Айат {self.selected_word}'
 
         for i in range(1, 7):
             sm.get_screen('quiz').ids[f'answer{i}'].text = f'{answer_list[i - 1]}'
