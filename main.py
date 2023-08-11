@@ -11,7 +11,11 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.core.window import Window
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.gridlayout import GridLayout
-
+from kivy import platform
+if platform == "android":
+    from android.permissions import request_permissions, Permission
+    request_permissions([Permission.INTERNET, Permission.WRITE_EXTERNAL_STORAGE,
+Permission.READ_EXTERNAL_STORAGE])
 
 import random
 import dataloader as dt
