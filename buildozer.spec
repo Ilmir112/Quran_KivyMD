@@ -37,7 +37,7 @@ version = 0.2
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3==3.11, hostpython3==3.9.12, kivy==2.2.0,https://github.com/kivymd/KivyMD/archive/master.zip, arabic-reshaper==3.0.0 ,
+requirements = python3==3.9.12, hostpython3==3.9.12, kivy==2.2.0,https://github.com/kivymd/KivyMD/archive/master.zip, arabic-reshaper==3.0.0 ,
 certifi==2023.7.22, charset-normalizer==3.2.0, colorama==0.4.6, cssselect==1.2.0, docutils==0.20.1,
 fake-useragent==1.2.0, idna==3.4, importlib-metadata==6.8.0, kivy-deps.angle==0.3.3, kivy-deps.glew==0.3.1, kivy-deps.sdl2==0.6.0,
 Kivy-Garden==0.1.5, lxml==4.9.3, Pillow==10.0.0, pyee==8.2.2,Pygments==2.15.1,
