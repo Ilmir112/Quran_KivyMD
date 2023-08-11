@@ -1,0 +1,94 @@
+MDScreen:
+    correct: correct
+    wrong: wrong
+    success_rate: success_rate
+    name: 'final_score'
+    MDFloatLayout:
+        md_bg_color: rgba( 60, 12, 156, 255)
+        Image:
+            source: 'data/logo/koran-oboi.jpg'
+            size: 1, 1
+        MDTopAppBar:
+            title: "Quran Academy"
+            use_overflow: True
+            panel_color: app.theme_cls.primary_color
+
+            right_action_items:
+                [
+                ["home", lambda main: app.callback('main'), "Главная"],
+#                ["cogs", lambda x: app.callback('setting'), "Настройки"],
+#                ["star-crescent", lambda x: app.callback('select_surah'), "Выбор игры"],
+#                ["message-reply", lambda x: app.callback(x), "авторы"],
+                ]
+
+        MDLabel:
+            text: 'Финальный счет '
+            font_size: '35sp'
+            halign: 'center'
+            size_hint: .8, .12
+            pos_hint: {'center_x': .5, 'center_y': .9}
+            color: 1, 1, 1, 0
+            line_height: 1.1
+        MDLabel:
+            id: correct
+            text: ''
+            font_size: '35sp'
+            halign: 'center'
+            size_hint: .8, .12
+            pos_hint: {'center_x': .5, 'center_y': .6}
+            color: 1, 1, 1, 1
+            line_height: 1.1
+            canvas.before:
+                Color:
+                    rgb: 1, 0, 1, 0
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.x, self.y + 5
+                    radius: [10]
+        MDLabel:
+            id: wrong
+            text: ''
+            font_size: '35sp'
+            halign: 'center'
+            size_hint: .8, .12
+            pos_hint: {'center_x': .5, 'center_y': .46}
+            color: 1, 1, 1, 1
+            line_height: 1.1
+            canvas.before:
+                Color:
+                    rgb: 0, 1, 0, 1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.x, self.y + 5
+                    radius: [10]
+        MDLabel:
+            id: success_rate
+            text: ''
+            font_size: '35sp'
+            halign: 'center'
+            size_hint: .8, .12
+            pos_hint: {'center_x': .5, 'center_y': .32}
+            color: 1, 1, 1, 1
+            line_height: 1.1
+            canvas.before:
+                Color:
+                    rgb: 0, 1, 0, 1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.x, self.y + 5
+                    radius: [10]
+#        Button:
+#            text: 'новая игра'
+#            font_size: '40sp'
+#            size_hint: .6, .12
+#            pos_hint: {'center_x': .5, 'center_y': .12}
+#            background_color:2, 1, 1, 0
+#            on_release:
+#                app.replay()
+#            canvas.before:
+#                Color:
+#                    rgb: rgba(251, 187, 29, 255)
+#                RoundedRectangle:
+#                    size: self.size
+#                    pos: self.x, self.y + 5
+#                    radius: [10]
