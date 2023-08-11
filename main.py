@@ -11,11 +11,6 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.core.window import Window
 from kivymd.uix.snackbar import Snackbar
 from kivymd.uix.gridlayout import GridLayout
-from kivy import platform
-if platform == "android":
-    from android.permissions import request_permissions, Permission
-    request_permissions([Permission.INTERNET, Permission.WRITE_EXTERNAL_STORAGE,
-Permission.READ_EXTERNAL_STORAGE])
 
 import random
 import dataloader as dt
@@ -197,7 +192,7 @@ class Quran_KivyMD(MDApp):
 
     def btn_word_pressed(self, url, filename):
         try:
-            filename = f'data/files_mp3/{url[4:-4]}.mp3'
+            filename = f'data/files_mp3/{url[4:-4]}.wav'
             # self.filename = filename
             with open(filename, "rb") as file:
                 file.read()
@@ -207,7 +202,7 @@ class Quran_KivyMD(MDApp):
             self.filename = filename
         except:
             http = "https://audio.qurancdn.com/"
-            filename = f'data/files_mp3/{url[4:-4]}.mp3'
+            filename = f'data/files_mp3/{url[4:-4]}.wav'
             self.filename = filename
             response = requests.get(f'{http}{url}')
             response.raise_for_status()
