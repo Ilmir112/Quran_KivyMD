@@ -74,10 +74,10 @@ class Quran_KivyMD(MDApp):
         word_sel = f'data/files_mp3{url[4:-4]}.mp3'
         self.filename = f'data/files_mp3{url[4:-4]}.mp3'
         self.btn_word_pressed(url, word_sel)
-
         sm.get_screen('learn').ids.word.text = f'{word_random[2]}'
         sm.get_screen('learn').ids.word1.text = f'{word_random[0]}'
         sm.get_screen('learn').ids.transition_1.text = f'[{word_random[3]}]'
+        sm.get_screen('learn').ids.open_ayat.text = f'Сура 30 Айат {self.selected_word}'
 
         sm.current = 'learn'
 
@@ -127,8 +127,12 @@ class Quran_KivyMD(MDApp):
         sm.current = 'select_game'
 
     def select_ayats(self, instance):
-        print(self.ayat_more)
+
         sm.current = 'select_ayats'
+
+    def open_ayat(self, selected_game):
+        sm.get_screen('learn').ids.open_ayat.text = f'Сура 30 Айат {selected_game}'
+        sm.current = 'learn'
 
     def select_word_dict(self, word_dict, instance):
         self.selected_word = int(str(instance)[-2:])

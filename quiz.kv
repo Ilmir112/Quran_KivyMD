@@ -74,14 +74,14 @@ MDScreen:
             rows: 4
             cols: 2
             size_hint: .6, .65
-            pos_hint: {'center_x': .4, 'center_y': .59}
-            spacing: 5
+            pos_hint: {'center_x': .5, 'center_y': .55}
+            spacing: 15
 
             MDLabel:
                 id: question
                 text: ''
                 font_size: '80sp'
-                text_size: Window.width - dp(15), None
+                text_size: self.size
                 font_name: "data/ttf/Noto_Naskh_Arabic/NotoNaskhArabic-VariableFont_wght.ttf"
                 halign: 'center'
                 color: 1, 1, 1, 1
@@ -89,7 +89,9 @@ MDScreen:
 
             MDIconButton:
                 icon: "pause-box"
-                icon_size: 48
+                icon_size: 76
+                halign: 'center'
+                valign: 'center'
                 pos_hint: {"center_x": .5, "center_y": .5}
                 on_release: app.play_word()
 
@@ -115,11 +117,15 @@ MDScreen:
 
         Button:
             text: 'Следующий вопрос'
-            font_size: '30sp'
+            font_size: '20sp'
+            text_size: self.size
+            halign: 'center'
+            valign: 'center'
+
             size_hint: .55, .12
-            pos_hint: {'center_x': .4, 'center_y': .17}
-            color: rgba(251, 187, 29, 255)
-            background_color:1, 1, 1, 0
+            pos_hint: {'center_x': .5, 'center_y': .15}
+            color: rgba(25, 187, 29, 255)
+            background_color:1, 0, 1, 0
             on_release:
                 app.next_question()
             canvas.before:
@@ -129,3 +135,4 @@ MDScreen:
                     size: self.size
                     pos: self.x, self.y + 5
                     radius: [10]
+
