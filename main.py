@@ -85,16 +85,17 @@ class Quran_KivyMD(MDApp):
     def next_word(self):
         self.select_word(self.selected_word)
     def text_ayat_id(self, instance):
-        if instance == 'айты 1-20':
+        if instance == 'Айты 1-20':
             self.ayat_more = 0
 
-        elif instance == 'айты 21-40':
+        elif instance == 'Айты 21-40':
             self.ayat_more = 1
 
-        elif instance == 'айты 41-60':
+
+        elif instance == 'Айты 41-60':
             self.ayat_more = 2
         ayat_more = self.ayat_more
-
+        print(ayat_more)
         for i in range(1, 21):
             sm.get_screen('select_ayat').ids[f'ayat{i}'].text = f'Айат {i + (20 * ayat_more)}'
 
@@ -221,6 +222,11 @@ class Quran_KivyMD(MDApp):
         sound = SoundLoader.load(self.filename)
         sound.play()
 
+    def open_drawer(self):
+        sm.get_screen(self).ids.nav_drawer.set_state("open")
+
+    def close_drawer(self):
+        self.root.ids.nav_drawer.set_state("close")
 
 if __name__ == '__main__':
     Quran_KivyMD().run()

@@ -1,17 +1,10 @@
 #:import CustomOverFlowMenu __main__.CustomOverFlowMenu
 #: import Window kivy.core.window.Window
 
-
 MDScreen:
     name: 'main'
-
-
-    MDFloatLayout:
-        md_bg_color: 1, 1, 0, 0
-        Image:
-            source: 'data/logo/koran-oboi.jpg'
-            size: 1, 1
-
+    BoxLayout:
+        orientation:'vertical'
         MDTopAppBar:
             title: "Quran Academy"
             use_overflow: True
@@ -19,38 +12,45 @@ MDScreen:
             overflow_cls: CustomOverFlowMenu()
             right_action_items:
                 [
-                ["home", lambda main: app.callback('main'), "Главная"],
+                ["home", lambda x: app.callback('main'), "Главная"],
 #                ["cogs", lambda x: app.callback('setting'), "Настройки"],
-                ["star-crescent", lambda x: app.callback('select_surah'), "Выбор игры"],
+                ["star-crescent", lambda x: app.callback('select_ayats'), "Выбор айата"],
 #                ["message-reply", lambda x: app.callback(x), "авторы"],
                 ]
 
+        Widget:
 
-    MDLabel:
-        text: "приветствие"
-        font_size: '55sp'
-        halign: 'center'
-        text_size: self.size
-        valign: 'center'
-        pos_hint: {'center_x': .5, 'center_y': .9}
-        color: 0, 1, 1, 1
-        line_height: 1.1
-    Button:
-        text: 'НАЧНЕМ ИЗУЧЕНИЕ'
-        md_bg_color: app.theme_cls.primary_color
-        font_size: '25sp'
-        text_size: self.size
-        halign: 'center'
-        valign: 'center'
-        size_hint: .55, .22
-        pos_hint: {'center_x': .5, 'center_y': .2}
-        background_color:0, 0, 0, 0
-        on_release:
-            root.manager.current = 'select_ayats'
-        canvas.before:
-            Color:
-                rgb:rgba(3, 19, 52, 1)
-            RoundedRectangle:
-                size: self.size
-                pos: self.x, self.y +5
-                radius: [10]
+    MDFloatLayout:
+        md_bg_color: 1, 1, 0, 0
+        Image:
+            source: 'data/logo/koran-oboi.jpg'
+            size: 1, 1
+
+        MDLabel:
+            text: "приветствие"
+            font_size: '55sp'
+            halign: 'center'
+            text_size: self.size
+            valign: 'center'
+            pos_hint: {'center_x': .5, 'center_y': .9}
+            color: 0, 1, 1, 1
+            line_height: 1.1
+        Button:
+            text: 'НАЧНЕМ ИЗУЧЕНИЕ'
+            md_bg_color: app.theme_cls.primary_color
+            font_size: '25sp'
+            text_size: self.size
+            halign: 'center'
+            valign: 'center'
+            size_hint: .55, .22
+            pos_hint: {'center_x': .5, 'center_y': .2}
+            background_color:0, 0, 0, 0
+            on_release:
+                root.manager.current = 'select_ayats'
+            canvas.before:
+                Color:
+                    rgb:rgba(3, 19, 52, 1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.x, self.y +5
+                    radius: [10]

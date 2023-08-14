@@ -22,30 +22,41 @@
 
 MDScreen:
     question: question
-    correct_answer: correct_answer
-    wrong_answer: wrong_answer
+
     open_ayat2: open_ayat2
 
     name: 'quiz'
 
-    MDFloatLayout:
-        md_bg_color: rgba( 60, 12, 156, 255)
-        Image:
-            source: 'data/logo/koran-oboi.jpg'
-            size: 1, 1
+    BoxLayout:
+        orientation:'vertical'
         MDTopAppBar:
             title: "Quran Academy"
             use_overflow: True
             panel_color: app.theme_cls.primary_color
-
+            overflow_cls: CustomOverFlowMenu()
             right_action_items:
                 [
-                ["home", lambda main: app.callback('main'), "Главная"],
-#                ["cogs", lambda x: app.callback('setting'), "Настройки"],
-#                ["star-crescent", lambda x: app.callback('select_surah'), "Выбор игры"],
-#                ["message-reply", lambda x: app.callback(x), "авторы"],
+                ["home", lambda x: app.callback('main'), "Главная"],
+    #                ["cogs", lambda x: app.callback('setting'), "Настройки"],
+                ["star-crescent", lambda x: app.callback('select_ayats'), "Выбор айата"],
+    #                ["message-reply", lambda x: app.callback(x), "авторы"],
                 ]
-        MDFloatLayout:
+
+        Widget:
+
+    MDFloatLayout:
+        md_bg_color:  1, 1, 0, 0
+        Image:
+            source: 'data/logo/koran-oboi.jpg'
+            size: 1, 1
+        MDGridLayout:
+            rows: 3
+            cols: 1
+            size_hint: .6, .5
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            spacing: 15
+
+
             MDLabel:
                 id: open_ayat2
                 text: ''
@@ -54,37 +65,6 @@ MDScreen:
                 pos_hint: {'center_x': .5, 'center_y': .9}
                 color: 1, 1, 1, 1
                 line_height: 1.1
-        MDGridLayout:
-            rows: 1
-            cols: 1
-            size_hint: .6, .3
-            pos_hint: {'center_x': .9, 'center_y': .90}
-            spacing: 15
-            MDLabel:
-                id: correct_answer
-                text: ''
-                font_size: '30sp'
-                halign: 'center'
-                pos_hint: {'center_x': .5, 'center_y': .5}
-                color: 1, 1, 1, 1
-                line_height: 1.1
-
-            MDLabel:
-                id: wrong_answer
-                text: ''
-                font_size: '30sp'
-                text_size: self.size
-                halign: 'center'
-                pos_hint: {'center_x': .4, 'center_y': .100}
-                color: 1, 1, 1, 1
-                line_height: 1.1
-
-        MDGridLayout:
-            rows: 5
-            cols: 2
-            size_hint: .6, .65
-            pos_hint: {'center_x': .5, 'center_y': .59}
-            spacing: 15
 
             MDLabel:
                 id: question
@@ -101,9 +81,15 @@ MDScreen:
                 icon_size: 76
                 halign: 'center'
                 valign: 'center'
-                pos_hint: {"center_x": .5, "center_y": .5}
+                pos_hint: {"center_x": .5, "center_y": .8}
                 on_release: app.play_word()
 
+        MDGridLayout:
+            rows: 5
+            cols: 2
+            size_hint: .6, .5
+            pos_hint: {'center_x': .5, 'center_y': .59}
+            spacing: 15
 
             AnswerButton:
                 id: answer1
@@ -123,16 +109,15 @@ MDScreen:
             AnswerButton:
                 id: answer6
 
-
+        FloatLayout:
             Button:
                 text: 'Следующий вопрос'
                 font_size: '20sp'
                 text_size: self.size
                 halign: 'center'
                 valign: 'center'
-
-                size: self.size
-                pos_hint: {'center_x': .5, 'center_y': .15}
+                size_hint: .25, .15
+                pos_hint: {'center_x': .5, 'center_y': .2}
                 color: rgba(25, 187, 29, 255)
                 background_color:1, 0, 1, 0
                 on_release:
@@ -145,20 +130,21 @@ MDScreen:
                         pos: self.x, self.y + 5
                         radius: [10]
 
-            Button:
-                text: 'конец игры'
-                font_size: '20sp'
-                size: self.size
-                pos_hint: {'center_x': .4, 'center_y': .12}
-                background_color:2, 1, 1, 0
-                on_release:
-                    app.final_score()
 
-                canvas.before:
-                    Color:
-                        rgb: rgba(251, 187, 29, 255)
-                    RoundedRectangle:
-                        size: self.size
-                        pos: self.x, self.y + 5
-                        radius: [10]
+                Button:
+                    text: 'конец игры'
+                    font_size: '20sp'
+                    size_hint: .25, .15
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    background_color:2, 1, 1, 0
+                    on_release:
+                        app.final_score()
+
+                    canvas.before:
+                        Color:
+                            rgb: rgba(251, 187, 29, 255)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.x, self.y + 5
+                            radius: [10]
 
