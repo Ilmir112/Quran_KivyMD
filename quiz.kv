@@ -1,4 +1,5 @@
 #: import Window kivy.core.window.Window
+
 <AnswerButton>
 
     font_size: '20sp'
@@ -21,8 +22,8 @@
 
 MDScreen:
     question: question
-#    correct: correct
-#    wrong: wrong
+    correct: correct
+    wrong: wrong
     open_ayat2: open_ayat2
 
     name: 'quiz'
@@ -45,27 +46,47 @@ MDScreen:
         Widget:
 
     MDFloatLayout:
+        background_color: 1, 0 ,0, 0
 
         Image:
             source: 'data/logo/koran-oboi.jpg'
             size: 1, 1
+        MDFloatLayout:
 
-        MDBoxLayout:
-            orientation:'vertical'
-            padding: 10
             MDLabel:
-                text: ''
-                size_hint: 0.02, 0.3
-                background_color: 0, 0 ,0, 0
+                id: correct
+                text: '23'
+                font_size: '30sp'
+                size_hint: 1, 0.9
+                pos_hint: {"center_x": .3, "center_y": .8}
+                valign: 'bottom'
+                halign: 'center'
+                background_color: 1, 0, 0, 1
+                color: 1, 0, 1, 1
+                line_height: 1.1
+
+            MDLabel:
+                id: wrong
+                size_hint: 0.4, 0.9
+                text: '45'
+                font_size: '30sp'
+                pos_hint: {"center_x": .7, "center_y": .8}
+                halign: 'center'
+                valign: 'bottom'
+                background_color: 1, 0, 0, 1
+                color: 1, 0, 1, 1
+                line_height: 1.1
+
             MDLabel:
                 id: open_ayat2
                 text: ''
                 background_color: 0, 0 ,0, 0
-                size_hint: 0.5, 0.05
+                size_hint: 0.5, 0.1
+#                pos_hint: {"center_x": 5, "center_y": .9}
                 font_size: '30sp'
                 halign: 'center'
-                valign: 'bottom'
-                pos_hint: {'center_x': .5, 'center_y': .7}
+                valign: 'center'
+
                 color: 1, 1, 1, 1
                 line_height: 1.1
                 canvas.before:
@@ -74,41 +95,9 @@ MDScreen:
                         pos: self.x, self.y + 5
                         radius: [10]
 
-            MDBoxLayout:
-                MDLabel:
-                    id: correct
-                    text: '23'
-                    font_size: '30sp'
-                    size_hint: 1, 0.1
-                    valign: 'bottom'
-                    halign: 'center'
-
-                    color: 1, 1, 1, 1
-                    line_height: 1.1
-
-                MDLabel:
-                    id: wrong
-                    size_hint: 1, 0.1
-                    text: '45'
-                    font_size: '30sp'
-                    halign: 'center'
-                    valign: 'bottom'
-
-                    color: 1, 1, 1, 1
-                    line_height: 1.1
-                Button:
-                    text: 'конец игры'
-                    font_size: '20sp'
-                    background_color: 0, 0 ,0, 0
-                    size_hint: .45, .25
-                    pos_hint: {'center_x': .5, 'center_y': .5}
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'center'
-
-                    background_color:2, 1, 1, 0
-                    on_release:
-                        app.final_score()
+        MDBoxLayout:
+            orientation:'vertical'
+            padding: 10
 
             MDBoxLayout:
                 MDLabel:
@@ -118,7 +107,7 @@ MDScreen:
                     font_size: '80sp'
                     text_size: self.size
                     font_name: "data/ttf/Noto_Naskh_Arabic/NotoNaskhArabic-VariableFont_wght.ttf"
-                    halign: 'center'
+                    halign: 'right'
                     adaptive_height: True
                     color: 0, 1, 0, 1
                     line_height: 1.1
@@ -128,15 +117,15 @@ MDScreen:
                     MDIconButton:
 
                         icon: "pause-box"
-                        icon_size: 55
+                        icon_size: 25
                         pos_hint: {"center_x": .1, "center_y": .5}
                         halign: 'center'
                         valign: 'center'
                         on_release: app.play_word()
 
                     MDCheckbox:
-                        size_hint: 1, 1
-                        size: "48dp", "48dp"
+                        size_hint: 1, 0.2
+
                         pos_hint: {'center_x': .2, 'center_y': .5}
 
                         on_release: app.on_release_chip(self)
