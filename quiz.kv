@@ -1,14 +1,13 @@
 #: import Window kivy.core.window.Window
-
-
 <AnswerButton>
 
     font_size: '20sp'
     halign: 'center'
-    valign:'center'
+    valign: 'center'
+    size_hint: 0.25, 0.5
     text_size: self.size
-
-    size: self.size
+    row_force_default: True
+    row_default_height: 20
     background_color: 0, 0 ,0, 0
     bg_color: rgba(0, 153, 0, 1)
     on_release: app.quiz(self.text, self)
@@ -22,7 +21,8 @@
 
 MDScreen:
     question: question
-
+#    correct: correct
+#    wrong: wrong
     open_ayat2: open_ayat2
 
     name: 'quiz'
@@ -33,7 +33,7 @@ MDScreen:
             title: "Quran Academy"
             use_overflow: True
             panel_color: app.theme_cls.primary_color
-            overflow_cls: CustomOverFlowMenu()
+#            overflow_cls: CustomOverFlowMenu()
             right_action_items:
                 [
                 ["home", lambda x: app.callback('main'), "Главная"],
@@ -45,79 +45,139 @@ MDScreen:
         Widget:
 
     MDFloatLayout:
-        md_bg_color:  1, 1, 0, 0
+
         Image:
             source: 'data/logo/koran-oboi.jpg'
             size: 1, 1
-        MDGridLayout:
-            rows: 3
-            cols: 1
-            size_hint: .6, .5
-            pos_hint: {'center_x': .5, 'center_y': .5}
-            spacing: 15
 
-
+        MDBoxLayout:
+            orientation:'vertical'
+            padding: 10
+            MDLabel:
+                text: ''
+                size_hint: 0.02, 0.3
+                background_color: 0, 0 ,0, 0
             MDLabel:
                 id: open_ayat2
                 text: ''
+                background_color: 0, 0 ,0, 0
+                size_hint: 0.5, 0.05
                 font_size: '30sp'
                 halign: 'center'
-                pos_hint: {'center_x': .5, 'center_y': .9}
+                valign: 'bottom'
+                pos_hint: {'center_x': .5, 'center_y': .7}
                 color: 1, 1, 1, 1
                 line_height: 1.1
+                canvas.before:
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.x, self.y + 5
+                        radius: [10]
 
-            MDLabel:
-                id: question
-                text: ''
-                font_size: '80sp'
-                text_size: self.size
-                font_name: "data/ttf/Noto_Naskh_Arabic/NotoNaskhArabic-VariableFont_wght.ttf"
-                halign: 'center'
-                color: 1, 1, 1, 1
-                line_height: 1.1
+            MDBoxLayout:
+                MDLabel:
+                    id: correct
+                    text: '23'
+                    font_size: '30sp'
+                    size_hint: 1, 0.1
+                    valign: 'bottom'
+                    halign: 'center'
 
-            MDIconButton:
-                icon: "pause-box"
-                icon_size: 76
-                halign: 'center'
-                valign: 'center'
-                pos_hint: {"center_x": .5, "center_y": .8}
-                on_release: app.play_word()
+                    color: 1, 1, 1, 1
+                    line_height: 1.1
 
-        MDGridLayout:
-            rows: 5
-            cols: 2
-            size_hint: .6, .5
-            pos_hint: {'center_x': .5, 'center_y': .59}
-            spacing: 15
+                MDLabel:
+                    id: wrong
+                    size_hint: 1, 0.1
+                    text: '45'
+                    font_size: '30sp'
+                    halign: 'center'
+                    valign: 'bottom'
 
-            AnswerButton:
-                id: answer1
+                    color: 1, 1, 1, 1
+                    line_height: 1.1
+                Button:
+                    text: 'конец игры'
+                    font_size: '20sp'
+                    background_color: 0, 0 ,0, 0
+                    size_hint: .45, .25
+                    pos_hint: {'center_x': .5, 'center_y': .5}
+                    text_size: self.size
+                    halign: 'center'
+                    valign: 'center'
 
-            AnswerButton:
-                id: answer2
+                    background_color:2, 1, 1, 0
+                    on_release:
+                        app.final_score()
 
-            AnswerButton:
-                id: answer3
+            MDBoxLayout:
+                MDLabel:
+                    id: question
+                    size_hint: 1, 0.1
+                    text: ''
+                    font_size: '80sp'
+                    text_size: self.size
+                    font_name: "data/ttf/Noto_Naskh_Arabic/NotoNaskhArabic-VariableFont_wght.ttf"
+                    halign: 'center'
+                    adaptive_height: True
+                    color: 0, 1, 0, 1
+                    line_height: 1.1
 
-            AnswerButton:
-                id: answer4
+                MDBoxLayout:
 
-            AnswerButton:
-                id: answer5
+                    MDIconButton:
 
-            AnswerButton:
-                id: answer6
+                        icon: "pause-box"
+                        icon_size: 55
+                        pos_hint: {"center_x": .1, "center_y": .5}
+                        halign: 'center'
+                        valign: 'center'
+                        on_release: app.play_word()
 
-        FloatLayout:
+                    MDCheckbox:
+                        size_hint: 1, 1
+                        size: "48dp", "48dp"
+                        pos_hint: {'center_x': .2, 'center_y': .5}
+
+                        on_release: app.on_release_chip(self)
+
+#
+
+            MDGridLayout:
+                rows: 5
+                cols: 2
+#                size_hint: .1, .1
+                pos_hint: {'center_x': .5, 'center_y': .59}
+                spacing: 15
+
+                AnswerButton:
+                    id: answer1
+
+                AnswerButton:
+                    id: answer2
+
+                AnswerButton:
+                    id: answer3
+
+                AnswerButton:
+                    id: answer4
+
+                AnswerButton:
+                    id: answer5
+
+                AnswerButton:
+                    id: answer6
+
+
             Button:
                 text: 'Следующий вопрос'
                 font_size: '20sp'
                 text_size: self.size
                 halign: 'center'
                 valign: 'center'
-                size_hint: .25, .15
-                pos_hint: {'center_x': .5, 'center_y': .2}
+                padding: 10
+                size_hint: .45, .25
+                pos_hint: {'center_x': .5, 'center_y': .5}
                 color: rgba(25, 187, 29, 255)
                 background_color:1, 0, 1, 0
                 on_release:
@@ -131,20 +191,24 @@ MDScreen:
                         radius: [10]
 
 
-                Button:
-                    text: 'конец игры'
-                    font_size: '20sp'
-                    size_hint: .25, .15
-                    pos_hint: {'center_x': .5, 'center_y': .5}
-                    background_color:2, 1, 1, 0
-                    on_release:
-                        app.final_score()
+            Button:
+                text: 'конец игры'
+                font_size: '20sp'
+                size_hint: .45, .25
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                text_size: self.size
+                halign: 'center'
+                valign: 'center'
 
-                    canvas.before:
-                        Color:
-                            rgb: rgba(251, 187, 29, 255)
-                        RoundedRectangle:
-                            size: self.size
-                            pos: self.x, self.y + 5
-                            radius: [10]
+                background_color:2, 1, 1, 0
+                on_release:
+                    app.final_score()
+
+                canvas.before:
+                    Color:
+                        rgb: rgba(251, 187, 29, 255)
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.x, self.y + 5
+                        radius: [10]
 

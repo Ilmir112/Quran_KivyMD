@@ -95,7 +95,7 @@ class Quran_KivyMD(MDApp):
         elif instance == 'Айты 41-60':
             self.ayat_more = 2
         ayat_more = self.ayat_more
-        print(ayat_more)
+
         for i in range(1, 21):
             sm.get_screen('select_ayat').ids[f'ayat{i}'].text = f'Айат {i + (20 * ayat_more)}'
 
@@ -111,9 +111,9 @@ class Quran_KivyMD(MDApp):
     def final_score(self):
         if self.correct == 0 and self.wrong == 0:
             sm.correct = 'main'
+
         else:
             for i in range(1, 7):
-                print(i)
                 sm.get_screen('quiz').ids[f'answer{i}'].disabled = False
                 sm.get_screen('quiz').ids[f'answer{i}'].bg_color = (40 / 255, 6 / 255, 109 / 255, 1)
                 sm.get_screen('quiz').ids[f'answer{i}'].disabled_color = (1, 1, 1, 0.3)
@@ -123,6 +123,7 @@ class Quran_KivyMD(MDApp):
             sm.get_screen('final_score').success_rate.text = f'{success_rate}% верных ответов'
 
             sm.current = 'final_score'
+
 
     def select_game(self, instance):
         self.select_word_dict(self, instance)
@@ -153,6 +154,8 @@ class Quran_KivyMD(MDApp):
         random.shuffle(answer_list)
         sm.get_screen('quiz').ids.question.text = f'{guestion1}'
         sm.get_screen('quiz').ids.open_ayat2.text = f'Сура 30 Айат {self.selected_word}'
+        # sm.get_screen('quiz').ids.correct.text == f'верно {self.correct}'
+        # sm.get_screen('quiz').ids.wrong.text == f'верно {self.wrong}'
 
         for i in range(1, 7):
             sm.get_screen('quiz').ids[f'answer{i}'].text = f'{answer_list[i - 1]}'
@@ -162,9 +165,9 @@ class Quran_KivyMD(MDApp):
     answer_dict = {}
 
     def get_id(self, instance):
-
-        for id, widget in instance.parent.parent.parent.ids.items():
+        for id, widget in instance.parent.parent.parent.parent.ids.items():
             if widget.__self__ == instance:
+
                 return id
 
     def quiz(self, answer, instance):
@@ -174,10 +177,9 @@ class Quran_KivyMD(MDApp):
             answer_id_list = ['answer1', 'answer2', 'answer3', 'answer4', 'answer5', 'answer6']
             answer_id_list.remove(self.get_id(instance))
             for i in range(1, 5):
-                print(i)
                 sm.get_screen('quiz').ids[f'{answer_id_list[i]}'].disabled = True
         else:
-
+            self.wrong += 1
             sm.get_screen('quiz').ids[self.get_id(instance)].bg_color = (1, 0, 0, 0)
             for i in range(1, 7):
                 if sm.get_screen('quiz').ids[f'answer{i}'].text == self.right_answer:
@@ -186,9 +188,6 @@ class Quran_KivyMD(MDApp):
                     sm.get_screen('quiz').ids[f'answer{i}'].disabled = True
             sm.get_screen('quiz').ids[self.get_id(instance)].bg_color = (1, 0, 1, 0)
             sm.get_screen('quiz').ids[self.get_id(instance)].disabled_color = (1, 1, 1, 1)
-        sm.get_screen('quiz').ids.correct_answer.text == f'верно {self.correct}'
-        sm.get_screen('quiz').ids.wrong_answer.text == f'верно {self.wrong}'
-        # sm.get_screen('quiz').correct.text = f'{self.wrong_answer} верно'
 
     def callback(self, instance_action_top_appbar_button):
         self.root.current = instance_action_top_appbar_button
@@ -222,11 +221,9 @@ class Quran_KivyMD(MDApp):
         sound = SoundLoader.load(self.filename)
         sound.play()
 
-    def open_drawer(self):
-        sm.get_screen(self).ids.nav_drawer.set_state("open")
 
-    def close_drawer(self):
-        self.root.ids.nav_drawer.set_state("close")
+    def on_release_chip(self, instance_check):
+        print(instance_check)
 
 if __name__ == '__main__':
     Quran_KivyMD().run()

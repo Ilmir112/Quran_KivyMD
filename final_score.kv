@@ -8,19 +8,22 @@ MDScreen:
         Image:
             source: 'data/logo/koran-oboi.jpg'
             size: 1, 1
-        MDTopAppBar:
-            title: "Quran Academy"
-            use_overflow: True
-            panel_color: app.theme_cls.primary_color
+        BoxLayout:
+            orientation:'vertical'
+            MDTopAppBar:
+                title: "Quran Academy"
+                use_overflow: True
+                panel_color: app.theme_cls.primary_color
+        #            overflow_cls: CustomOverFlowMenu()
+                right_action_items:
+                    [
+                    ["home", lambda x: app.callback('main'), "Главная"],
+        #                ["cogs", lambda x: app.callback('setting'), "Настройки"],
+                    ["star-crescent", lambda x: app.callback('select_ayats'), "Выбор айата"],
+        #                ["message-reply", lambda x: app.callback(x), "авторы"],
+                    ]
 
-            right_action_items:
-                [
-                ["home", lambda main: app.callback('main'), "Главная"],
-#                ["cogs", lambda x: app.callback('setting'), "Настройки"],
-#                ["star-crescent", lambda x: app.callback('select_surah'), "Выбор игры"],
-#                ["message-reply", lambda x: app.callback(x), "авторы"],
-                ]
-
+        Widget:
         MDLabel:
             text: 'Финальный счет '
             font_size: '35sp'
